@@ -1,26 +1,23 @@
 def sorted_subset_sums(numbers: set):
+    # Put your iterator/generator here. 
     import heapq
 
     numbers = sorted(numbers)
-    heap = [(0, -1)]
-    seen = {(0, -1)}
+
+    yield 0
+
+    if len(numbers) == 0:
+        return
+
+    heap = [(numbers[0], 0)]
 
     while heap:
         total, i = heapq.heappop(heap)
         yield total
 
-        j = i + 1
-        if j < len(numbers):
-            option1 = (total + numbers[j], j)
-            if option1 not in seen:
-                seen.add(option1)
-                heapq.heappush(heap, option1)
-
-            if i >= 0:
-                option2 = (total - numbers[i] + numbers[j], j)
-                if option2 not in seen:
-                    seen.add(option2)
-                    heapq.heappush(heap, option2)
+        if i + 1 < len(numbers):
+            heapq.heappush(heap, (total + numbers[i + 1], i + 1))
+            heapq.heappush(heap, (total - numbers[i] + numbers[i + 1], i + 1))
 
 if __name__ == '__main__':
     # from itertools import takewhile, islice
