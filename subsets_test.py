@@ -19,5 +19,20 @@ def test_cases(testcase):
 
 
 def test_new_cases():
-    # your new tests here
-    pass
+    from itertools import islice, takewhile
+
+    assert list(sorted_subset_sums([1, 2, 4])) == [0, 1, 2, 3, 4, 5, 6, 7]
+
+    assert list(sorted_subset_sums([1, 2, 3])) == [0, 1, 2, 3, 3, 4, 5, 6]
+
+    assert list(sorted_subset_sums([2, 3, 4])) == [0, 2, 3, 4, 5, 6, 7, 9]
+
+    assert list(islice(sorted_subset_sums(range(100)), 5)) == [0, 0, 1, 1, 2]
+
+    assert list(takewhile(lambda x: x <= 6, sorted_subset_sums(range(1, 100)))) == [
+        0, 1, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6
+    ]
+
+    assert list(sorted_subset_sums([])) == [0]
+
+    assert list(sorted_subset_sums([5])) == [0, 5]
